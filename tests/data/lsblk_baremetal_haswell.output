@@ -1,0 +1,16 @@
+sda    disk 999653638144    1                   MR9361-8i
+|-sda1 part    268435456    1 /boot      ext2
+|-sda2 part   1073741824    1 [SWAP]     swap
+`-sda3 part 998310412288    1 /          ext4
+sdb    disk 999653638144    1                   MR9361-8i
+`-sdb1 part 999651540992    1 /disk1     ext4
+sdc    disk 999653638144    1                   MR9361-8i
+sdd    disk 999653638144    1                   MR9361-8i
+sde    disk 999653638144    1                   MR9361-8i
+sdf    disk 999653638144    1                   MR9361-8i
+sdg    disk 959656755200    1                   MR9361-8i
+sdh    disk 959656755200    1                   MR9361-8i
+sdi    disk 959656755200    1                   MR9361-8i
+sdj    disk 959656755200    1                   MR9361-8i
+sdk    disk 959656755200    1                   MR9361-8i
+sdl    disk 959656755200    1                   MR9361-8i

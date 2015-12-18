@@ -1,0 +1,26 @@
+sda    disk 999643152384    1                   JBOD-A
+|-sda1 part    268435456    1 /boot      ext2
+|-sda2 part   1073741824    1 [SWAP]     swap
+`-sda3 part 998299926528    1 /          ext4
+sdb    disk 799927173120    1                   JBOD-B
+`-sdb1 part 799925075968    1 /disk1     ext4
+sdc    disk 999643152384    1                   JBOD-C
+`-sdc1 part 999641055232    1 /disk2     ext4
+sdd    disk 799927173120    1                   JBOD-D
+`-sdd1 part 799925075968    1 /disk3     ext4
+sde    disk 999643152384    1                   JBOD-E
+`-sde1 part 999641055232    1 /disk4     ext4
+sdf    disk 799927173120    1                   JBOD-F
+`-sdf1 part 799925075968    1 /disk5     ext4
+sdg    disk 999643152384    1                   JBOD-G
+`-sdg1 part 999641055232    1 /disk6     ext4
+sdh    disk 799927173120    1                   JBOD-H
+`-sdh1 part 799925075968    1 /disk7     ext4
+sdi    disk 999643152384    1                   JBOD-I
+`-sdi1 part 999641055232    1 /disk8     ext4
+sdk    disk 999643152384    1                   JBOD-K
+`-sdk1 part 999641055232    1 /disk10    ext4
+sdj    disk 799927173120    1                   JBOD-J
+`-sdj1 part 799925075968    1 /disk9     ext4
+sdl    disk 799927173120    1                   JBOD-L
+`-sdl1 part 799925075968    1 /disk11    ext4

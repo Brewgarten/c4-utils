@@ -1,0 +1,829 @@
+{
+"Controllers":[
+{
+	"Command Status" : {
+		"Controller" : 0,
+		"Status" : "Success",
+		"Description" : "Show Drive Information Succeeded."
+	},
+	"Response Data" : {
+		"Drive /c0/e25/s0" : [
+			{
+				"EID:Slt" : "25:0",
+				"DID" : 26,
+				"State" : "Onln",
+				"DG" : 0,
+				"Size" : "931.0 GB",
+				"Intf" : "SATA",
+				"Med" : "HDD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "ST1000NM0033-9ZM173",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s0 - Detailed Information" : {
+			"Drive /c0/e25/s0 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : " 26C (78.80 F)",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s0 Device attributes" : {
+				"SN" : "Z1W310HN",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "ST1000NM0033-9ZM",
+				"NAND Vendor" : "",
+				"WWN" : "5000c50079d9da90",
+				"Firmware Revision" : "SN04",
+				"Raw size" : "931.513 GB [0x74706db0 Sectors]",
+				"Coerced size" : "931.0 GB [0x74600000 Sectors]",
+				"Non Coerced size" : "931.013 GB [0x74606db0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s0 Policies/Settings" : {
+				"Drive position" : "DriveGroup:0, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef780"
+					}
+				]
+			},
+			"Inquiry Data" : "5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 31 5a 33 57 30 31 4e 48 00 00 00 00 00 00 4e 53 34 30 20 20 20 20 54 53 30 31 30 30 4d 4e 30 30 33 33 39 2d 4d 5a 37 31 20 33 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 3f 00 10 fc fb 00 10 00 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s1" : [
+			{
+				"EID:Slt" : "25:1",
+				"DID" : 31,
+				"State" : "Onln",
+				"DG" : 6,
+				"Size" : "893.75 GB",
+				"Intf" : "SATA",
+				"Med" : "SSD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "SDLFGC7R-960G-1HST",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s1 - Detailed Information" : {
+			"Drive /c0/e25/s1 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : "N/A",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s1 Device attributes" : {
+				"SN" : "00006E9B",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "SDLFGC7R-960G-1H",
+				"NAND Vendor" : "",
+				"WWN" : "5001173100111434",
+				"Firmware Revision" : "MC99",
+				"Raw size" : "894.253 GB [0x6fc81ab0 Sectors]",
+				"Coerced size" : "893.75 GB [0x6fb80000 Sectors]",
+				"Non Coerced size" : "893.753 GB [0x6fb81ab0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s1 Policies/Settings" : {
+				"Drive position" : "DriveGroup:6, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef781"
+					}
+				]
+			},
+			"Inquiry Data" : "08 5a ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 30 30 30 30 45 36 42 39 00 00 00 40 32 00 4e 5a 48 31 43 4d 39 39 44 53 46 4c 43 47 52 37 39 2d 30 36 2d 47 48 31 54 53 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 00 00 2f 01 40 00 00 00 00 07 00 ff 3f 10 00 3f 00 10 fc fb 00 00 51 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s2" : [
+			{
+				"EID:Slt" : "25:2",
+				"DID" : 27,
+				"State" : "Onln",
+				"DG" : 1,
+				"Size" : "931.0 GB",
+				"Intf" : "SATA",
+				"Med" : "HDD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "ST1000NM0033-9ZM173",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s2 - Detailed Information" : {
+			"Drive /c0/e25/s2 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : " 25C (77.00 F)",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s2 Device attributes" : {
+				"SN" : "Z1W314R8",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "ST1000NM0033-9ZM",
+				"NAND Vendor" : "",
+				"WWN" : "5000c50079d8d7d4",
+				"Firmware Revision" : "SN04",
+				"Raw size" : "931.513 GB [0x74706db0 Sectors]",
+				"Coerced size" : "931.0 GB [0x74600000 Sectors]",
+				"Non Coerced size" : "931.013 GB [0x74606db0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s2 Policies/Settings" : {
+				"Drive position" : "DriveGroup:1, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef782"
+					}
+				]
+			},
+			"Inquiry Data" : "5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 31 5a 33 57 34 31 38 52 00 00 00 00 00 00 4e 53 34 30 20 20 20 20 54 53 30 31 30 30 4d 4e 30 30 33 33 39 2d 4d 5a 37 31 20 33 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 3f 00 10 fc fb 00 10 00 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s3" : [
+			{
+				"EID:Slt" : "25:3",
+				"DID" : 28,
+				"State" : "Onln",
+				"DG" : 7,
+				"Size" : "893.75 GB",
+				"Intf" : "SATA",
+				"Med" : "SSD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "SDLFGC7R-960G-1HST",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s3 - Detailed Information" : {
+			"Drive /c0/e25/s3 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : "N/A",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s3 Device attributes" : {
+				"SN" : "000070B6",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "SDLFGC7R-960G-1H",
+				"NAND Vendor" : "",
+				"WWN" : "5001173100111ca0",
+				"Firmware Revision" : "MC99",
+				"Raw size" : "894.253 GB [0x6fc81ab0 Sectors]",
+				"Coerced size" : "893.75 GB [0x6fb80000 Sectors]",
+				"Non Coerced size" : "893.753 GB [0x6fb81ab0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s3 Policies/Settings" : {
+				"Drive position" : "DriveGroup:7, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef783"
+					}
+				]
+			},
+			"Inquiry Data" : "08 5a ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 30 30 30 30 30 37 36 42 00 00 00 40 32 00 4e 5a 48 31 43 4d 39 39 44 53 46 4c 43 47 52 37 39 2d 30 36 2d 47 48 31 54 53 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 00 00 2f 01 40 00 00 00 00 07 00 ff 3f 10 00 3f 00 10 fc fb 00 00 51 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s4" : [
+			{
+				"EID:Slt" : "25:4",
+				"DID" : 30,
+				"State" : "Onln",
+				"DG" : 2,
+				"Size" : "931.0 GB",
+				"Intf" : "SATA",
+				"Med" : "HDD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "ST1000NM0033-9ZM173",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s4 - Detailed Information" : {
+			"Drive /c0/e25/s4 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : " 25C (77.00 F)",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s4 Device attributes" : {
+				"SN" : "Z1W350AK",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "ST1000NM0033-9ZM",
+				"NAND Vendor" : "",
+				"WWN" : "5000c50079f80b2c",
+				"Firmware Revision" : "SN04",
+				"Raw size" : "931.513 GB [0x74706db0 Sectors]",
+				"Coerced size" : "931.0 GB [0x74600000 Sectors]",
+				"Non Coerced size" : "931.013 GB [0x74606db0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s4 Policies/Settings" : {
+				"Drive position" : "DriveGroup:2, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef784"
+					}
+				]
+			},
+			"Inquiry Data" : "5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 31 5a 33 57 30 35 4b 41 00 00 00 00 00 00 4e 53 34 30 20 20 20 20 54 53 30 31 30 30 4d 4e 30 30 33 33 39 2d 4d 5a 37 31 20 33 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 3f 00 10 fc fb 00 10 00 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s5" : [
+			{
+				"EID:Slt" : "25:5",
+				"DID" : 32,
+				"State" : "Onln",
+				"DG" : 8,
+				"Size" : "893.75 GB",
+				"Intf" : "SATA",
+				"Med" : "SSD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "SDLFGC7R-960G-1HST",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s5 - Detailed Information" : {
+			"Drive /c0/e25/s5 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : "N/A",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s5 Device attributes" : {
+				"SN" : "00006EA2",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "SDLFGC7R-960G-1H",
+				"NAND Vendor" : "",
+				"WWN" : "5001173100111450",
+				"Firmware Revision" : "MC99",
+				"Raw size" : "894.253 GB [0x6fc81ab0 Sectors]",
+				"Coerced size" : "893.75 GB [0x6fb80000 Sectors]",
+				"Non Coerced size" : "893.753 GB [0x6fb81ab0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s5 Policies/Settings" : {
+				"Drive position" : "DriveGroup:8, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef785"
+					}
+				]
+			},
+			"Inquiry Data" : "08 5a ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 30 30 30 30 45 36 32 41 00 00 00 40 32 00 4e 5a 48 31 43 4d 39 39 44 53 46 4c 43 47 52 37 39 2d 30 36 2d 47 48 31 54 53 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 00 00 2f 01 40 00 00 00 00 07 00 ff 3f 10 00 3f 00 10 fc fb 00 00 51 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s6" : [
+			{
+				"EID:Slt" : "25:6",
+				"DID" : 29,
+				"State" : "Onln",
+				"DG" : 3,
+				"Size" : "931.0 GB",
+				"Intf" : "SATA",
+				"Med" : "HDD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "ST1000NM0033-9ZM173",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s6 - Detailed Information" : {
+			"Drive /c0/e25/s6 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : " 25C (77.00 F)",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s6 Device attributes" : {
+				"SN" : "Z1W311C9",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "ST1000NM0033-9ZM",
+				"NAND Vendor" : "",
+				"WWN" : "5000c50079d99eda",
+				"Firmware Revision" : "SN04",
+				"Raw size" : "931.513 GB [0x74706db0 Sectors]",
+				"Coerced size" : "931.0 GB [0x74600000 Sectors]",
+				"Non Coerced size" : "931.013 GB [0x74606db0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s6 Policies/Settings" : {
+				"Drive position" : "DriveGroup:3, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef786"
+					}
+				]
+			},
+			"Inquiry Data" : "5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 31 5a 33 57 31 31 39 43 00 00 00 00 00 00 4e 53 34 30 20 20 20 20 54 53 30 31 30 30 4d 4e 30 30 33 33 39 2d 4d 5a 37 31 20 33 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 3f 00 10 fc fb 00 10 00 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s7" : [
+			{
+				"EID:Slt" : "25:7",
+				"DID" : 33,
+				"State" : "Onln",
+				"DG" : 9,
+				"Size" : "893.75 GB",
+				"Intf" : "SATA",
+				"Med" : "SSD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "SDLFGC7R-960G-1HST",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s7 - Detailed Information" : {
+			"Drive /c0/e25/s7 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : "N/A",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s7 Device attributes" : {
+				"SN" : "00007CCC",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "SDLFGC7R-960G-1H",
+				"NAND Vendor" : "",
+				"WWN" : "50011731001151a8",
+				"Firmware Revision" : "MC99",
+				"Raw size" : "894.253 GB [0x6fc81ab0 Sectors]",
+				"Coerced size" : "893.75 GB [0x6fb80000 Sectors]",
+				"Non Coerced size" : "893.753 GB [0x6fb81ab0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s7 Policies/Settings" : {
+				"Drive position" : "DriveGroup:9, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef787"
+					}
+				]
+			},
+			"Inquiry Data" : "08 5a ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 30 30 30 30 43 37 43 43 00 00 00 40 32 00 4e 5a 48 31 43 4d 39 39 44 53 46 4c 43 47 52 37 39 2d 30 36 2d 47 48 31 54 53 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 00 00 2f 01 40 00 00 00 00 07 00 ff 3f 10 00 3f 00 10 fc fb 00 00 51 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s8" : [
+			{
+				"EID:Slt" : "25:8",
+				"DID" : 41,
+				"State" : "Onln",
+				"DG" : 4,
+				"Size" : "931.0 GB",
+				"Intf" : "SATA",
+				"Med" : "HDD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "ST1000NM0033-9ZM173",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s8 - Detailed Information" : {
+			"Drive /c0/e25/s8 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : " 25C (77.00 F)",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s8 Device attributes" : {
+				"SN" : "Z1W35QZG",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "ST1000NM0033-9ZM",
+				"NAND Vendor" : "",
+				"WWN" : "5000c50079fb7b13",
+				"Firmware Revision" : "SN04",
+				"Raw size" : "931.513 GB [0x74706db0 Sectors]",
+				"Coerced size" : "931.0 GB [0x74600000 Sectors]",
+				"Non Coerced size" : "931.013 GB [0x74606db0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s8 Policies/Settings" : {
+				"Drive position" : "DriveGroup:4, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef788"
+					}
+				]
+			},
+			"Inquiry Data" : "5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 31 5a 33 57 51 35 47 5a 00 00 00 00 00 00 4e 53 34 30 20 20 20 20 54 53 30 31 30 30 4d 4e 30 30 33 33 39 2d 4d 5a 37 31 20 33 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 3f 00 10 fc fb 00 10 00 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s9" : [
+			{
+				"EID:Slt" : "25:9",
+				"DID" : 43,
+				"State" : "Onln",
+				"DG" : 10,
+				"Size" : "893.75 GB",
+				"Intf" : "SATA",
+				"Med" : "SSD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "SDLFGC7R-960G-1HST",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s9 - Detailed Information" : {
+			"Drive /c0/e25/s9 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : "N/A",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s9 Device attributes" : {
+				"SN" : "00006E21",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "SDLFGC7R-960G-1H",
+				"NAND Vendor" : "",
+				"WWN" : "500117310011124c",
+				"Firmware Revision" : "MC99",
+				"Raw size" : "894.253 GB [0x6fc81ab0 Sectors]",
+				"Coerced size" : "893.75 GB [0x6fb80000 Sectors]",
+				"Non Coerced size" : "893.753 GB [0x6fb81ab0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s9 Policies/Settings" : {
+				"Drive position" : "DriveGroup:10, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef789"
+					}
+				]
+			},
+			"Inquiry Data" : "08 5a ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 30 30 30 30 45 36 31 32 00 00 00 40 32 00 4e 5a 48 31 43 4d 39 39 44 53 46 4c 43 47 52 37 39 2d 30 36 2d 47 48 31 54 53 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 00 00 2f 01 40 00 00 00 00 07 00 ff 3f 10 00 3f 00 10 fc fb 00 00 51 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s10" : [
+			{
+				"EID:Slt" : "25:10",
+				"DID" : 42,
+				"State" : "Onln",
+				"DG" : 5,
+				"Size" : "931.0 GB",
+				"Intf" : "SATA",
+				"Med" : "HDD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "ST1000NM0033-9ZM173",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s10 - Detailed Information" : {
+			"Drive /c0/e25/s10 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : " 25C (77.00 F)",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s10 Device attributes" : {
+				"SN" : "Z1W30KFC",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "ST1000NM0033-9ZM",
+				"NAND Vendor" : "",
+				"WWN" : "5000c50079d94756",
+				"Firmware Revision" : "SN04",
+				"Raw size" : "931.513 GB [0x74706db0 Sectors]",
+				"Coerced size" : "931.0 GB [0x74600000 Sectors]",
+				"Non Coerced size" : "931.013 GB [0x74606db0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s10 Policies/Settings" : {
+				"Drive position" : "DriveGroup:5, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef78a"
+					}
+				]
+			},
+			"Inquiry Data" : "5a 0c ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 31 5a 33 57 4b 30 43 46 00 00 00 00 00 00 4e 53 34 30 20 20 20 20 54 53 30 31 30 30 4d 4e 30 30 33 33 39 2d 4d 5a 37 31 20 33 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 40 00 2f 00 40 00 02 00 02 07 00 ff 3f 10 00 3f 00 10 fc fb 00 10 00 ff ff ff 0f 00 00 07 00 "
+		},
+		"Drive /c0/e25/s11" : [
+			{
+				"EID:Slt" : "25:11",
+				"DID" : 44,
+				"State" : "Onln",
+				"DG" : 11,
+				"Size" : "893.75 GB",
+				"Intf" : "SATA",
+				"Med" : "SSD",
+				"SED" : "N",
+				"PI" : "N",
+				"SeSz" : "512B",
+				"Model" : "SDLFGC7R-960G-1HST",
+				"Sp" : "U"
+			}
+		],
+		"Drive /c0/e25/s11 - Detailed Information" : {
+			"Drive /c0/e25/s11 State" : {
+				"Shield Counter" : 0,
+				"Media Error Count" : 0,
+				"Other Error Count" : 0,
+				"Drive Temperature" : "N/A",
+				"Predictive Failure Count" : 0,
+				"S.M.A.R.T alert flagged by drive" : "No"
+			},
+			"Drive /c0/e25/s11 Device attributes" : {
+				"SN" : "FG00DAPY",
+				"Manufacturer Id" : "ATA     ",
+				"Model Number" : "SDLFGC7R-960G-1H",
+				"NAND Vendor" : "",
+				"WWN" : "50011731002cb98c",
+				"Firmware Revision" : "MC99",
+				"Raw size" : "894.253 GB [0x6fc81ab0 Sectors]",
+				"Coerced size" : "893.75 GB [0x6fb80000 Sectors]",
+				"Non Coerced size" : "893.753 GB [0x6fb81ab0 Sectors]",
+				"Device Speed" : "6.0Gb/s",
+				"Link Speed" : "6.0Gb/s",
+				"Logical Sector Size" : "512B",
+				"Physical Sector Size" : "512B"
+			},
+			"Drive /c0/e25/s11 Policies/Settings" : {
+				"Drive position" : "DriveGroup:11, Span:0, Row:0",
+				"Enclosure position" : 0,
+				"Connected Port Number" : "0(path0) ",
+				"Sequence Number" : 2,
+				"Commissioned Spare" : "No",
+				"Emergency Spare" : "No",
+				"Last Predictive Failure Event Sequence Number" : 0,
+				"Successful diagnostics completion on" : "N/A",
+				"SED Capable" : "No",
+				"SED Enabled" : "No",
+				"Secured" : "No",
+				"Locked" : "No",
+				"Needs EKM Attention" : "No",
+				"PI Eligible" : "No",
+				"Certified" : "No",
+				"Wide Port Capable" : "No",
+				"Port Information" : [
+					{
+						"Port" : 0,
+						"Status" : "Active",
+						"Linkspeed" : "6.0Gb/s",
+						"SAS address" : "0x50030480019ef78b"
+					}
+				]
+			},
+			"Inquiry Data" : "08 5a ff 3f 37 c8 10 00 00 00 00 00 3f 00 00 00 00 00 00 00 20 20 20 20 20 20 20 20 20 20 20 20 47 46 30 30 41 44 59 50 00 00 00 40 32 00 4e 5a 48 31 43 4d 39 39 44 53 46 4c 43 47 52 37 39 2d 30 36 2d 47 48 31 54 53 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 10 80 00 00 00 2f 01 40 00 00 00 00 07 00 ff 3f 10 00 3f 00 10 fc fb 00 00 51 ff ff ff 0f 00 00 07 00 "
+		}
+	}
+}
+]
+}

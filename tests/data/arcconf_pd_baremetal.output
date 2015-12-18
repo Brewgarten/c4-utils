@@ -1,0 +1,323 @@
+Controllers found: 1
+----------------------------------------------------------------------
+Physical Device information
+----------------------------------------------------------------------
+      Device #0
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,0(0:0)
+         Reported Location                  : Enclosure 0, Slot 0
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : ST1000NM0033-9ZM
+         Firmware                           : SN04    
+         Serial number                      : Z1W27WRB
+         World-wide name                    : 5000C500672E920B
+         Reserved Size                      : 538264 KB
+         Used Size                          : 953344 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 953869 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full rpm,Powered off
+         SSD                                : No
+         NCQ status                         : Enabled
+      Device #1
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,1(1:0)
+         Reported Location                  : Enclosure 0, Slot 1
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : INTEL SSDSC2BA80
+         Firmware                           : 5DV10270
+         Serial number                      : BTTV4496021Y800JGN
+         Reserved Size                      : 223000 KB
+         Used Size                          : 762880 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 763097 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full power,Powered off
+         SSD                                : Yes
+         NCQ status                         : Enabled
+      Device #2
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,2(2:0)
+         Reported Location                  : Enclosure 0, Slot 2
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : ST1000NM0033-9ZM
+         Firmware                           : SN03    
+         Serial number                      : Z1W1VQ9A
+         World-wide name                    : 5000C50066B7B757
+         Reserved Size                      : 538264 KB
+         Used Size                          : 953344 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 953869 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full rpm,Powered off
+         SSD                                : No
+         NCQ status                         : Enabled
+      Device #3
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,3(3:0)
+         Reported Location                  : Enclosure 0, Slot 3
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : INTEL SSDSC2BA80
+         Firmware                           : 5DV10270
+         Serial number                      : BTTV4362057M800JGN
+         Reserved Size                      : 223000 KB
+         Used Size                          : 762880 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 763097 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full power,Powered off
+         SSD                                : Yes
+         NCQ status                         : Enabled
+      Device #4
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,4(4:0)
+         Reported Location                  : Enclosure 0, Slot 4
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : ST1000NM0033-9ZM
+         Firmware                           : SN03    
+         Serial number                      : Z1W29881
+         World-wide name                    : 5000C500673F1277
+         Reserved Size                      : 538264 KB
+         Used Size                          : 953344 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 953869 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full rpm,Powered off
+         SSD                                : No
+         NCQ status                         : Enabled
+      Device #5
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,5(5:0)
+         Reported Location                  : Enclosure 0, Slot 5
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : INTEL SSDSC2BA80
+         Firmware                           : 5DV10270
+         Serial number                      : BTTV449600QF800JGN
+         Reserved Size                      : 223000 KB
+         Used Size                          : 762880 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 763097 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full power,Powered off
+         SSD                                : Yes
+         NCQ status                         : Enabled
+      Device #6
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,6(6:0)
+         Reported Location                  : Enclosure 0, Slot 6
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : ST1000NM0033-9ZM
+         Firmware                           : SN03    
+         Serial number                      : Z1W21C7Q
+         World-wide name                    : 5000C50066E514BA
+         Reserved Size                      : 538264 KB
+         Used Size                          : 953344 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 953869 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full rpm,Powered off
+         SSD                                : No
+         NCQ status                         : Enabled
+      Device #7
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,7(7:0)
+         Reported Location                  : Enclosure 0, Slot 7
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : INTEL SSDSC2BA80
+         Firmware                           : 5DV10270
+         Serial number                      : BTTV449503PZ800JGN
+         Reserved Size                      : 223000 KB
+         Used Size                          : 762880 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 763097 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full power,Powered off
+         SSD                                : Yes
+         NCQ status                         : Enabled
+      Device #8
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,8(8:0)
+         Reported Location                  : Enclosure 0, Slot 8
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : ST1000NM0033-9ZM
+         Firmware                           : SN04    
+         Serial number                      : Z1W2QP7A
+         World-wide name                    : 5000C500791394E7
+         Reserved Size                      : 538264 KB
+         Used Size                          : 953344 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 953869 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full rpm,Powered off
+         SSD                                : No
+         NCQ status                         : Enabled
+      Device #9
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,9(9:0)
+         Reported Location                  : Enclosure 0, Slot 9
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : INTEL SSDSC2BA80
+         Firmware                           : 5DV10270
+         Serial number                      : BTTV449600NV800JGN
+         Reserved Size                      : 223000 KB
+         Used Size                          : 762880 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 763097 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full power,Powered off
+         SSD                                : Yes
+         NCQ status                         : Enabled
+      Device #10
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,10(10:0)
+         Reported Location                  : Enclosure 0, Slot 10
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : ST1000NM0033-9ZM
+         Firmware                           : SN04    
+         Serial number                      : Z1W35KLZ
+         World-wide name                    : 5000C50079FD2527
+         Reserved Size                      : 538264 KB
+         Used Size                          : 953344 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 953869 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full rpm,Powered off
+         SSD                                : No
+         NCQ status                         : Enabled
+      Device #11
+         Device is a Hard drive
+         State                              : Online
+         Block Size                         : 512 Bytes
+         Supported                          : Yes
+         Transfer Speed                     : SATA 6.0 Gb/s
+         Reported Channel,Device(T:L)       : 0,11(11:0)
+         Reported Location                  : Enclosure 0, Slot 11
+         Reported ESD(T:L)                  : 2,0(0:0)
+         Vendor                             : ATA
+         Model                              : INTEL SSDSC2BA80
+         Firmware                           : 5DV10270
+         Serial number                      : BTTV4496022R800JGN
+         Reserved Size                      : 223000 KB
+         Used Size                          : 762880 MB
+         Unused Size                        : 64 KB
+         Total Size                         : 763097 MB
+         Write Cache                        : Enabled (write-back)
+         FRU                                : None
+         S.M.A.R.T.                         : No
+         S.M.A.R.T. warnings                : 0
+         Power State                        : Full rpm
+         Supported Power States             : Full power,Powered off
+         SSD                                : Yes
+         NCQ status                         : Enabled
+      Device #12
+         Device is an Enclosure services device
+         Reported Channel,Device(T:L)       : 2,0(0:0)
+         Enclosure ID                       : 0
+         Type                               : SES2
+         Vendor                             : ADAPTEC
+         Model                              : Virtual SGPIO
+         Firmware                           :    1
+         Status of Enclosure services device
+            Speaker status                  : Not available
+
+
+Command completed successfully.

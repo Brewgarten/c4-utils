@@ -1,0 +1,271 @@
+Controllers found: 1
+----------------------------------------------------------------------
+Logical device information
+----------------------------------------------------------------------
+Logical device number 0
+   Logical device name                      : JBOD-A
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 66D96528
+   Status of logical device                 : Optimal
+   Size                                     : 953334 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : Yes
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:0)             Z1W27WRB
+
+Logical device number 1
+   Logical device name                      : JBOD-B
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 7F657528
+   Status of logical device                 : Optimal
+   Size                                     : 762870 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:1) BTTV4496021Y800JGN
+
+Logical device number 2
+   Logical device name                      : JBOD-C
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : B1E97528
+   Status of logical device                 : Optimal
+   Size                                     : 953334 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:2)             Z1W1VQ9A
+
+Logical device number 3
+   Logical device name                      : JBOD-D
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : AA758528
+   Status of logical device                 : Optimal
+   Size                                     : 762870 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:3) BTTV4362057M800JGN
+
+Logical device number 4
+   Logical device name                      : JBOD-E
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 61099528
+   Status of logical device                 : Optimal
+   Size                                     : 953334 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:4)             Z1W29881
+
+Logical device number 5
+   Logical device name                      : JBOD-F
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : C8859528
+   Status of logical device                 : Optimal
+   Size                                     : 762870 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:5) BTTV449600QF800JGN
+
+Logical device number 6
+   Logical device name                      : JBOD-G
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 9419A528
+   Status of logical device                 : Optimal
+   Size                                     : 953334 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:6)             Z1W21C7Q
+
+Logical device number 7
+   Logical device name                      : JBOD-H
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 6795A528
+   Status of logical device                 : Optimal
+   Size                                     : 762870 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:7) BTTV449503PZ800JGN
+
+Logical device number 8
+   Logical device name                      : JBOD-I
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 062DB528
+   Status of logical device                 : Optimal
+   Size                                     : 953334 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:8)             Z1W2QP7A
+
+Logical device number 9
+   Logical device name                      : JBOD-J
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : F6ADB528
+   Status of logical device                 : Optimal
+   Size                                     : 762870 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:9) BTTV449600NV800JGN
+
+Logical device number 10
+   Logical device name                      : JBOD-K
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 6641C528
+   Status of logical device                 : Optimal
+   Size                                     : 953334 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:10)             Z1W35KLZ
+
+Logical device number 11
+   Logical device name                      : JBOD-L
+   Block Size of member drives              : 512 Bytes
+   RAID level                               : Simple_volume
+   Unique Identifier                        : 0DC1C528
+   Status of logical device                 : Optimal
+   Size                                     : 762870 MB
+   Parity space                             : NA
+   Read-cache setting                       : Enabled
+   Read-cache status                        : On
+   Write-cache setting                      : On when protected by battery/ZMM
+   Write-cache status                       : On
+   Partitioned                              : Yes
+   Protected by Hot-Spare                   : No
+   Bootable                                 : No
+   Failed stripes                           : No
+   Power settings                           : Disabled
+   --------------------------------------------------------
+   Logical device segment information
+   --------------------------------------------------------
+   Segment 0                                : Present (Controller:1,Enclosure:0,Slot:11) BTTV4496022R800JGN
+
+
+
+Command completed successfully.
