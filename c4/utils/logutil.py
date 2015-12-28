@@ -9,7 +9,7 @@ can then be used to log on a per-class basis.
 
 .. code-block:: python
 
-    from dynamite.utils.logutil import ClassLogger
+    from c4.utils.logutil import ClassLogger
 
     @ClassLogger
     class Example:

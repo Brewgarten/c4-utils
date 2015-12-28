@@ -1,10 +1,15 @@
 import pytest
 import re
-import signal
 
 from multiprocessing import Process
 
-from c4.utils.util import EtcHosts, exclusiveWrite, isVirtualMachine, getModuleClasses, mergeDictionaries, sortHostnames
+from c4.utils.util import (EtcHosts,
+                           callWithVariableArguments,
+                           exclusiveWrite,
+                           isVirtualMachine,
+                           getModuleClasses,
+                           mergeDictionaries,
+                           sortHostnames, getVariableArguments)
 
 def test_EtcHosts():
 
@@ -47,6 +52,284 @@ def test_EtcHosts():
     assert re.search("newNode", etcHostsString, re.MULTILINE)
     assert re.search("node1.nodedomain node1", etcHostsString, re.MULTILINE)
 
+class TestVariableArguments():
+
+    def test_noArguments(self):
+
+        def noArguments():
+            return True
+
+        assert getVariableArguments(noArguments) == ({}, [], {})
+        assert callWithVariableArguments(noArguments)
+
+        assert getVariableArguments(noArguments, "test") == ({}, ["test"], {})
+        assert callWithVariableArguments(noArguments, "test")
+
+        assert getVariableArguments(noArguments, a="test") == ({}, [], {"a": "test"})
+        assert callWithVariableArguments(noArguments, a="test")
+
+        assert getVariableArguments(noArguments, "test", a="test") == ({}, ["test"], {"a": "test"})
+        assert callWithVariableArguments(noArguments, "test", a="test")
+
+    def test_noArgumentsWithVarargs(self):
+
+        def noArgumentsWithVarargs(*v):
+            return v
+
+        assert getVariableArguments(noArgumentsWithVarargs) == ({}, [], {})
+        assert callWithVariableArguments(noArgumentsWithVarargs) == ()
+
+        assert getVariableArguments(noArgumentsWithVarargs, "test") == ({}, ["test"], {})
+        assert callWithVariableArguments(noArgumentsWithVarargs, "test") == ("test",)
+
+        assert getVariableArguments(noArgumentsWithVarargs, a="test") == ({}, [], {"a": "test"})
+        assert callWithVariableArguments(noArgumentsWithVarargs, a="test") == ()
+
+        assert getVariableArguments(noArgumentsWithVarargs, "test", a="test") == ({}, ["test"], {"a": "test"})
+        assert callWithVariableArguments(noArgumentsWithVarargs, "test", a="test") == ("test",)
+
+    def test_noArgumentsWithKeywords(self):
+
+        def noArgumentsWithKeywords(**keywords):
+            return keywords
+
+        assert getVariableArguments(noArgumentsWithKeywords) == ({}, [], {})
+        assert callWithVariableArguments(noArgumentsWithKeywords) == {}
+
+        assert getVariableArguments(noArgumentsWithKeywords, "test") == ({}, ["test"], {})
+        assert callWithVariableArguments(noArgumentsWithKeywords, "test") == {}
+
+        assert getVariableArguments(noArgumentsWithKeywords, a="test") == ({}, [], {"a": "test"})
+        assert callWithVariableArguments(noArgumentsWithKeywords, a="test") == {"a": "test"}
+
+        assert getVariableArguments(noArgumentsWithKeywords, "test", a="test") == ({}, ["test"], {"a": "test"})
+        assert callWithVariableArguments(noArgumentsWithKeywords, "test", a="test") == {"a": "test"}
+
+    def test_oneArgument(self):
+
+        def oneArgument(a):
+            return a
+
+        assert getVariableArguments(oneArgument) == ({'a': '_notset_'}, [], {})
+        assert callWithVariableArguments(oneArgument) is None
+
+        assert getVariableArguments(oneArgument, "test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneArgument, "test") == "test"
+
+        assert getVariableArguments(oneArgument, a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneArgument, a="test") == "test"
+
+        assert getVariableArguments(oneArgument, "test", "test") == ({"a": "test"}, ["test"], {})
+        assert callWithVariableArguments(oneArgument, "test", "test") == "test"
+
+        assert getVariableArguments(oneArgument, "test", b="test") == ({"a": "test"}, [], {"b": "test"})
+        assert callWithVariableArguments(oneArgument, "test", b="test") == "test"
+
+        assert getVariableArguments(oneArgument, "test", "test", c="test") == ({"a": "test"}, ["test"], {"c": "test"})
+        assert callWithVariableArguments(oneArgument, "test", "test", c="test") == "test"
+
+    def test_oneArgumentWithVarargs(self):
+
+        def oneArgumentWithVarargs(a, *v):
+            return a, v
+
+        assert getVariableArguments(oneArgumentWithVarargs) == ({'a': '_notset_'}, [], {})
+        assert callWithVariableArguments(oneArgumentWithVarargs) is None
+
+        assert getVariableArguments(oneArgumentWithVarargs, "test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneArgumentWithVarargs, "test") == ("test", ())
+
+        assert getVariableArguments(oneArgumentWithVarargs, a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneArgumentWithVarargs, a="test") == ("test", ())
+
+        assert getVariableArguments(oneArgumentWithVarargs, "test", "test") == ({"a": "test"}, ["test"], {})
+        assert callWithVariableArguments(oneArgumentWithVarargs, "test", "test")  == ("test", ("test",))
+
+        assert getVariableArguments(oneArgumentWithVarargs, "test", b="test") == ({"a": "test"}, [], {"b": "test"})
+        assert callWithVariableArguments(oneArgumentWithVarargs, "test", b="test")  == ("test", ())
+
+        assert getVariableArguments(oneArgumentWithVarargs, "test", "test", c="test") == ({"a": "test"}, ["test"], {"c": "test"})
+        assert callWithVariableArguments(oneArgumentWithVarargs, "test", "test", c="test")  == ("test", ("test",))
+
+    def test_oneArgumentWithKeywords(self):
+
+        def oneArgumentWithKeywords(a, **keywords):
+            return a, keywords
+
+        assert getVariableArguments(oneArgumentWithKeywords) == ({'a': '_notset_'}, [], {})
+        assert callWithVariableArguments(oneArgumentWithKeywords) is None
+
+        assert getVariableArguments(oneArgumentWithKeywords, "test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneArgumentWithKeywords, "test") == ("test", {})
+
+        assert getVariableArguments(oneArgumentWithKeywords, a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneArgumentWithKeywords, a="test") == ("test", {})
+
+        assert getVariableArguments(oneArgumentWithKeywords, "test", "test") == ({"a": "test"}, ["test"], {})
+        assert callWithVariableArguments(oneArgumentWithKeywords, "test", "test") == ("test", {})
+
+        assert getVariableArguments(oneArgumentWithKeywords, "test", b="test") == ({"a": "test"}, [], {"b": "test"})
+        assert callWithVariableArguments(oneArgumentWithKeywords, "test", b="test") == ("test", {"b": "test"})
+
+        assert getVariableArguments(oneArgumentWithKeywords, "test", "test", c="test") == ({"a": "test"}, ["test"], {"c": "test"})
+        assert callWithVariableArguments(oneArgumentWithKeywords, "test", "test", c="test") == ("test", {"c": "test"})
+
+    def test_oneKeywordArgument(self):
+
+        def oneKeywordArgument(a="a"):
+            return a
+
+        assert getVariableArguments(oneKeywordArgument) == ({"a": "a"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgument) == "a"
+
+        assert getVariableArguments(oneKeywordArgument, "test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgument, "test") == "test"
+
+        assert getVariableArguments(oneKeywordArgument, a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgument, a="test") == "test"
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(oneKeywordArgument, "test", a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgument, "test", a="test") == "test"
+
+        assert getVariableArguments(oneKeywordArgument, "test", b="test") == ({"a": "test"}, [], {"b": "test"})
+        assert callWithVariableArguments(oneKeywordArgument, "test", b="test") == "test"
+
+        assert getVariableArguments(oneKeywordArgument, "test", "test", c="test") == ({"a": "test"}, ["test"], {"c": "test"})
+        assert callWithVariableArguments(oneKeywordArgument, "test", "test", c="test") == "test"
+
+    def test_oneKeywordArgumentWithVarargs(self):
+
+        def oneKeywordArgumentWithVarargs(a="a", *v):
+            return a, v
+
+        assert getVariableArguments(oneKeywordArgumentWithVarargs) == ({"a": "a"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithVarargs) == ("a", ())
+
+        assert getVariableArguments(oneKeywordArgumentWithVarargs, "test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithVarargs, "test") == ("test", ())
+
+        assert getVariableArguments(oneKeywordArgumentWithVarargs, a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithVarargs, a="test") == ("test", ())
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(oneKeywordArgumentWithVarargs, "test", a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithVarargs, "test", a="test") == ("test", ())
+
+        assert getVariableArguments(oneKeywordArgumentWithVarargs, "test", b="test") == ({"a": "test"}, [], {"b": "test"})
+        assert callWithVariableArguments(oneKeywordArgumentWithVarargs, "test", b="test") == ("test", ())
+
+        assert getVariableArguments(oneKeywordArgumentWithVarargs, "test", "test", c="test") == ({"a": "test"}, ["test"], {"c": "test"})
+        assert callWithVariableArguments(oneKeywordArgumentWithVarargs, "test", "test", c="test") == ("test", ("test",))
+
+    def test_oneKeywordArgumentWithKeywords(self):
+
+        def oneKeywordArgumentWithKeywords(a="a", **keywords):
+            return a, keywords
+
+        assert getVariableArguments(oneKeywordArgumentWithKeywords) == ({"a": "a"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithKeywords) == ("a", {})
+
+        assert getVariableArguments(oneKeywordArgumentWithKeywords, "test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithKeywords, "test") == ("test", {})
+
+        assert getVariableArguments(oneKeywordArgumentWithKeywords, a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithKeywords, a="test") == ("test", {})
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(oneKeywordArgumentWithKeywords, "test", a="test") == ({"a": "test"}, [], {})
+        assert callWithVariableArguments(oneKeywordArgumentWithKeywords, "test", a="test") == ("test", {})
+
+        assert getVariableArguments(oneKeywordArgumentWithKeywords, "test", b="test") == ({"a": "test"}, [], {"b": "test"})
+        assert callWithVariableArguments(oneKeywordArgumentWithKeywords, "test", b="test") == ("test", {"b": "test"})
+
+        assert getVariableArguments(oneKeywordArgumentWithKeywords, "test", "test", c="test") == ({"a": "test"}, ["test"], {"c": "test"})
+        assert callWithVariableArguments(oneKeywordArgumentWithKeywords, "test", "test", c="test") == ("test", {"c": "test"})
+
+    def test_combinedArguments(self):
+
+        def combinedArguments(a, b="b"):
+            return a, b
+
+        assert getVariableArguments(combinedArguments) == ({"a": "_notset_", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArguments) is None
+
+        assert getVariableArguments(combinedArguments, b="test") == ({"a": "_notset_", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArguments, b="test") is None
+
+        assert getVariableArguments(combinedArguments, "test") == ({"a": "test", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArguments, "test") == ("test", "b")
+
+        assert getVariableArguments(combinedArguments, a="test") == ({"a": "test", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArguments, a="test") == ("test", "b")
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(combinedArguments, "test" , "test", a="test") == ({"a": "test", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArguments, "test", "test", a="test") == ("test", "test")
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(combinedArguments, "test" , "test", b="test") == ({"a": "test", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArguments, "test", "test", b="test") == ("test", "test")
+
+        assert getVariableArguments(combinedArguments, "test" , "test", c="test") == ({"a": "test", "b": "test"}, [], {"c": "test"})
+        assert callWithVariableArguments(combinedArguments, "test", "test", "test", c="test") == ("test", "test")
+
+    def test_combinedArgumentsWithVarargs(self):
+
+        def combinedArgumentsWithVarargs(a, b="b", *v):
+            return a, b, v
+
+        assert getVariableArguments(combinedArgumentsWithVarargs) == ({"a": "_notset_", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithVarargs) is None
+
+        assert getVariableArguments(combinedArgumentsWithVarargs, b="test") == ({"a": "_notset_", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithVarargs, b="test") is None
+
+        assert getVariableArguments(combinedArgumentsWithVarargs, "test") == ({"a": "test", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithVarargs, "test") == ("test", "b", ())
+
+        assert getVariableArguments(combinedArgumentsWithVarargs, a="test") == ({"a": "test", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithVarargs, a="test") == ("test", "b", ())
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(combinedArgumentsWithVarargs, "test" , "test", a="test") == ({"a": "test", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithVarargs, "test", "test", a="test") == ("test", "test", ())
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(combinedArgumentsWithVarargs, "test" , "test", b="test") == ({"a": "test", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithVarargs, "test", "test", b="test") == ("test", "test", ())
+
+        assert getVariableArguments(combinedArgumentsWithVarargs, "test" , "test", c="test") == ({"a": "test", "b": "test"}, [], {"c": "test"})
+        assert callWithVariableArguments(combinedArgumentsWithVarargs, "test", "test", "test", c="test") == ("test", "test", ("test",))
+
+    def test_combinedArgumentsWithKeywords(self):
+
+        def combinedArgumentsWithKeywords(a, b="b", **keywords):
+            return a, b, keywords
+
+        assert getVariableArguments(combinedArgumentsWithKeywords) == ({"a": "_notset_", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithKeywords) is None
+
+        assert getVariableArguments(combinedArgumentsWithKeywords, b="test") == ({"a": "_notset_", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithKeywords, b="test") is None
+
+        assert getVariableArguments(combinedArgumentsWithKeywords, "test") == ({"a": "test", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithKeywords, "test") == ("test", "b", {})
+
+        assert getVariableArguments(combinedArgumentsWithKeywords, a="test") == ({"a": "test", "b": "b"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithKeywords, a="test") == ("test", "b", {})
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(combinedArgumentsWithKeywords, "test" , "test", a="test") == ({"a": "test", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithKeywords, "test", "test", a="test") == ("test", "test", {})
+
+        # note that here the keyword replaces the actual argument so we do not get back any left overs
+        assert getVariableArguments(combinedArgumentsWithKeywords, "test" , "test", b="test") == ({"a": "test", "b": "test"}, [], {})
+        assert callWithVariableArguments(combinedArgumentsWithKeywords, "test", "test", b="test") == ("test", "test", {})
+
+        assert getVariableArguments(combinedArgumentsWithKeywords, "test" , "test", c="test") == ({"a": "test", "b": "test"}, [], {"c": "test"})
+        assert callWithVariableArguments(combinedArgumentsWithKeywords, "test", "test", "test", c="test") == ("test", "test", {"c": "test"})
+
 def test_exclusiveWrite(tmpdir):
     processes = []
     testProcesses = 100
@@ -87,7 +370,7 @@ sdk  disk
 sdg  disk
 sdl  disk"""
 
-    monkeypatch.setattr("c4.execute", baremetal)
+    monkeypatch.setattr("c4.utils.command.execute", baremetal)
     assert isVirtualMachine() == False
 
     def vm(command, errorMessage=None):
@@ -108,14 +391,6 @@ def test_getModuleClasses():
 
     import c4.utils.jsonutil
     assert c4.utils.jsonutil.JSONSerializable in getModuleClasses(c4.utils.jsonutil)
-
-    import c4.messaging
-    assert c4.messaging.Peer in getModuleClasses(c4.messaging)
-    assert c4.messaging.MessageClient in getModuleClasses(c4.messaging)
-    assert c4.messaging.PeerRouter in getModuleClasses(c4.messaging, baseClass=Process)
-    assert c4.messaging.DealerRouter in getModuleClasses(c4.messaging, baseClass=c4.utils.util.NamedProcess)
-
-    assert c4.messaging.Envelope("from","to","action").typeAsString == "c4.Envelope"
 
 def test_mergeDictionaries():
 
@@ -143,91 +418,6 @@ def test_mergeDictionaries():
     assert merged["valueChange1"] == 2
     assert merged["valueChange2"] == {"test": "newValue"}
     assert merged["valueChange3"] == {"test": {"test2": "newValue"}}
-
-def __getCmd():
-    cmdline = bytes(open('/proc/self/cmdline', 'rb').read())
-    argv = cmdline.split(chr(0))
-    name = cmdline.replace(chr(0), ' ')
-    return name.rstrip(chr(0) + ' '), argv, len(cmdline)
-
-def test_setProcessName():
-    import ctypes
-    from c4.utils.util import Argv, setProcessName
-
-    pname = "test_setProcessName"
-    name, argv, size = __getCmd()
-    setProcessName(pname)
-    nname, _, nsize = __getCmd()
-
-    assert nsize == size, 'nsize:{0}, size:{1}, nname{2}'.format(nsize, size, nname)
-    assert nname != name, 'nname:{0}, name:{1}'.format(nname, name)
-    assert nname.rstrip(chr(0)) == pname, 'nname:{0}, pname:{1}'.format(nname, pname)
-    assert nsize <= Argv.instance().allocatedSize, 'nsize:{0}, alloc:{1}'.format(Argv.instance().allocatedSize)
-
-def test_namedProcess():
-    from c4.utils.util import NamedProcess
-    from multiprocessing import Queue
-    from types import DictType
-
-    def checkName(q, myname):
-        name, _, size = __getCmd()
-        r = {'name-check' : 'name:{0} myname:{1}'.format(name, myname) if name != myname else ''}
-        if hasattr(q, 'put'):
-            q.put(r)
-        else:
-            q['return'] = r
-
-    q = Queue()
-    proc = NamedProcess(name='forked-proc', target=checkName, args=(q, 'forked-proc'))
-    proc.start()
-    v = q.get()
-    assert v['name-check'] == '', v['name-check']
-    proc.join()
-
-    q = {}
-    proc = NamedProcess(name='un-forked-proc', target=checkName, args=(q, 'un-forked-proc'))
-    proc.run()
-    v = q['return']
-    assert v['name-check'] != '', v['name-check']
-
-    q = {}
-    proc = NamedProcess(name='un-forked-proc', target=checkName, args=(q, 'un-forked-proc'), setParentName=True)
-    proc.run()
-    v = q['return']
-    assert v['name-check'] == '', v['name-check']
-
-def test_reaper():
-    from c4.utils.util import NamedProcess, setupReaper
-    import time
-
-    def status(pid):
-        try:
-            f = file('/proc/{0}//status'.format(pid))
-            f.readline()
-            line = f.readline()
-        except:
-            line = ''
-        return line
-
-    def iszombie(pid):
-        line = status(pid).split()
-        return len(line) > 1 and line[1] == 'Z'
-
-    pids = []
-    setupReaper()
-
-    for i in range(5):
-        c = NamedProcess(name="reap-{0}".format(i), target=lambda :time.sleep(0.5))
-        c.start()
-        pids.append(c.pid)
-
-    time.sleep(1)
-    zombies = filter(iszombie, pids)
-
-    # reset signal handler
-    signal.signal(signal.SIGCHLD, 0)
-
-    assert len(zombies) == 0, '{0} zombies : pids:{1}, status:{2}'.format(len(zombies), zombies, map(status, zombies))
 
 def test_sortHostnames():
 

@@ -421,33 +421,37 @@ def callWithVariableArguments(handler, *arguments, **keyValueArguments):
         log.error("%s needs to be a method or function", handler)
         return
 
-    if len(arguments) > len(handlerArguments):
-        # more arguments than handler expects. Ignore them
-        diff = len(arguments) - len(handlerArguments)
-        log.debug("%s arguments given, when %s expects only %s, ignoring last %s",
-                    len(arguments), handler, len(handlerArguments), diff)
-        arguments = arguments[:-diff]
+    # retrieve variable argument map for the handler
+    handlerArgumentMap, leftOverArguments, leftOverKeywords = getVariableArguments(handler, *arguments, **keyValueArguments)
 
-    elif len(arguments) < len(handlerArguments):
-        # if we don't have enough arguments that handler expects then error out
-        # only if there are no defaults specified
-        if len(arguments) + len(handlerArgSpec.defaults) == len(handlerArguments):
-            # if handler has specified N defaults then we can tolerate if last N arguments
-            # aren't present
-            arguments = list(arguments) + list(handlerArgSpec.defaults)
-        else:
-            log.error("Handler %s requires %s arguments[%s] (defaults:%s) but only %s [%s] given",
-                      handler, len(handlerArguments), handlerArguments, handlerArgSpec.defaults,
-                      len(arguments), arguments)
-            return None
+    # check for missing required arguments
+    missingArguments = [
+        key
+        for key, value in handlerArgumentMap.items()
+        if value == "_notset_"
+    ]
+    if missingArguments:
+        for missingArgument in missingArguments:
+            log.error("'%s' is missing required argument '%s'",
+                      handler.__name__, missingArgument)
+        return None
 
+    # add optional keyword arguments
+    if handlerArgSpec.keywords:
+        handlerArgumentMap.update(leftOverKeywords)
+
+    # add optional variable arguments
     if handlerArgSpec.varargs:
-        arguments = list(arguments) + list(handlerArgSpec.varargs)
+        # retrieve argument values from the map
+        handlerArgumentValues = [
+            handlerArgumentMap.pop(argumentName)
+            for argumentName in handlerArguments
+        ]
+        # combine argument values with varargs
+        combinedArguments = handlerArgumentValues + list(leftOverArguments)
+        return handler(*combinedArguments, **handlerArgumentMap)
 
-    if handlerArgSpec.keywords is not None:
-        return handler(*arguments, **handlerArgSpec.keywords)
-
-    return handler(*arguments)
+    return handler(**handlerArgumentMap)
 
 def confirmPrompt(prompt=None, default="no"):
     """
@@ -583,7 +587,7 @@ def getModuleClasses(module, baseClass=None, includeSubModules=True):
     else:
         return list(classes)
 
-def getSubModules(module, ignoreErrors=False):
+def getSubModules(module):
     """
     Recursively find all sub modules of the specified module
 
@@ -600,10 +604,60 @@ def getSubModules(module, ignoreErrors=False):
                 submodules.extend(getSubModules(subModule))
             except ImportError as ie:
                 log.debug("Cannot import %s: %s", moduleName, ie)
-                if not ignoreErrors:
-                    raise
 
     return submodules
+
+def getVariableArguments(handler, *arguments, **keyValueArguments):
+    """
+    Retrieve an argument map for the specified handler with the arguments
+    and keywords applied as well as the left over arguments and keywords
+
+    :param handler: handler
+    :type handler: method or func
+    :param arguments: handler arguments
+    :param keyValueArguments: handler key value arguments
+    :returns: (handlerArgumentMap, leftOverArguments, leftOverKeywords)
+    :rtype: tuple
+    """
+    handlerArgSpec = inspect.getargspec(handler)
+    if inspect.ismethod(handler):
+        handlerArguments = handlerArgSpec.args[1:]
+    elif inspect.isfunction(handler):
+        handlerArguments = handlerArgSpec.args
+    else:
+        log.error("%s needs to be a method or function", handler)
+        return
+
+    if handlerArgSpec.defaults is None:
+        handlerDefaults = []
+    else:
+        handlerDefaults = handlerArgSpec.defaults
+
+    lastRequiredArgumentIndex = len(handlerArguments)-len(handlerDefaults)
+    requiredHandlerArguments = handlerArguments[:lastRequiredArgumentIndex]
+    optionalHandlerArguments = handlerArguments[lastRequiredArgumentIndex:]
+
+    # determine handler arguments
+    handlerArgumentMap = {}
+    for name in requiredHandlerArguments:
+        handlerArgumentMap[name] = "_notset_"
+    for index, name in enumerate(optionalHandlerArguments):
+        handlerArgumentMap[name] = handlerDefaults[index]
+
+    # set passed in arguments
+    for index, value in enumerate(arguments[:len(handlerArguments)]):
+        handlerArgumentMap[handlerArguments[index]] = value
+    leftOverArguments = list(arguments[len(handlerArguments):])
+
+    # set passed in keyword arguments
+    leftOverKeywords = {}
+    for name, value in keyValueArguments.items():
+        if name in handlerArgumentMap:
+            handlerArgumentMap[name] = value
+        else:
+            leftOverKeywords[name] = value
+
+    return handlerArgumentMap, leftOverArguments, leftOverKeywords
 
 def isVirtualMachine():
     """
