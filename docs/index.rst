@@ -9,6 +9,7 @@ Contents:
    command
    dhcp
    enum
+   hjsonutil
    jsonutil
    logutil
    util
