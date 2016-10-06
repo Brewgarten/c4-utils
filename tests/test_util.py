@@ -5,11 +5,11 @@ from multiprocessing import Process
 
 from c4.utils.util import (EtcHosts,
                            callWithVariableArguments,
+                           getModuleClasses, getVariableArguments,
                            exclusiveWrite,
-                           isVirtualMachine,
-                           getModuleClasses,
+                           initWithVariableArguments, isVirtualMachine,
                            mergeDictionaries,
-                           sortHostnames, getVariableArguments)
+                           sortHostnames)
 
 def test_EtcHosts():
 
@@ -56,17 +56,23 @@ class TestVariableArguments():
 
     def test_noArguments(self):
 
+        class NoArguments(object):
+            def __init__(self):
+                pass
+
         def noArguments():
             return True
 
         assert getVariableArguments(noArguments) == ({}, [], {})
         assert callWithVariableArguments(noArguments)
+        assert initWithVariableArguments(NoArguments)
 
         assert getVariableArguments(noArguments, "test") == ({}, ["test"], {})
         assert callWithVariableArguments(noArguments, "test")
 
         assert getVariableArguments(noArguments, a="test") == ({}, [], {"a": "test"})
         assert callWithVariableArguments(noArguments, a="test")
+        assert initWithVariableArguments(NoArguments, a="test")
 
         assert getVariableArguments(noArguments, "test", a="test") == ({}, ["test"], {"a": "test"})
         assert callWithVariableArguments(noArguments, "test", a="test")
@@ -90,17 +96,23 @@ class TestVariableArguments():
 
     def test_noArgumentsWithKeywords(self):
 
+        class NoArgumentsWithKeywords(object):
+            def __init__(self, **keywords):
+                self.keywords = keywords
+
         def noArgumentsWithKeywords(**keywords):
             return keywords
 
         assert getVariableArguments(noArgumentsWithKeywords) == ({}, [], {})
         assert callWithVariableArguments(noArgumentsWithKeywords) == {}
+        assert initWithVariableArguments(NoArgumentsWithKeywords)
 
         assert getVariableArguments(noArgumentsWithKeywords, "test") == ({}, ["test"], {})
         assert callWithVariableArguments(noArgumentsWithKeywords, "test") == {}
 
         assert getVariableArguments(noArgumentsWithKeywords, a="test") == ({}, [], {"a": "test"})
         assert callWithVariableArguments(noArgumentsWithKeywords, a="test") == {"a": "test"}
+        assert initWithVariableArguments(NoArgumentsWithKeywords, a="test").keywords == {"a": "test"}
 
         assert getVariableArguments(noArgumentsWithKeywords, "test", a="test") == ({}, ["test"], {"a": "test"})
         assert callWithVariableArguments(noArgumentsWithKeywords, "test", a="test") == {"a": "test"}
@@ -176,17 +188,23 @@ class TestVariableArguments():
 
     def test_oneKeywordArgument(self):
 
+        class OneKeywordArgument(object):
+            def __init__(self, a="a"):
+                self.a = a
+
         def oneKeywordArgument(a="a"):
             return a
 
         assert getVariableArguments(oneKeywordArgument) == ({"a": "a"}, [], {})
         assert callWithVariableArguments(oneKeywordArgument) == "a"
+        assert initWithVariableArguments(OneKeywordArgument)
 
         assert getVariableArguments(oneKeywordArgument, "test") == ({"a": "test"}, [], {})
         assert callWithVariableArguments(oneKeywordArgument, "test") == "test"
 
         assert getVariableArguments(oneKeywordArgument, a="test") == ({"a": "test"}, [], {})
         assert callWithVariableArguments(oneKeywordArgument, a="test") == "test"
+        assert initWithVariableArguments(OneKeywordArgument, a="test").a == "test"
 
         # note that here the keyword replaces the actual argument so we do not get back any left overs
         assert getVariableArguments(oneKeywordArgument, "test", a="test") == ({"a": "test"}, [], {})
@@ -224,6 +242,11 @@ class TestVariableArguments():
 
     def test_oneKeywordArgumentWithKeywords(self):
 
+        class OneKeywordArgumentWithKeywords(object):
+            def __init__(self, a="a", **keywords):
+                self.a = a
+                self.keywords = keywords
+
         def oneKeywordArgumentWithKeywords(a="a", **keywords):
             return a, keywords
 
@@ -235,6 +258,8 @@ class TestVariableArguments():
 
         assert getVariableArguments(oneKeywordArgumentWithKeywords, a="test") == ({"a": "test"}, [], {})
         assert callWithVariableArguments(oneKeywordArgumentWithKeywords, a="test") == ("test", {})
+        assert initWithVariableArguments(OneKeywordArgumentWithKeywords, a="test").a == "test"
+        assert initWithVariableArguments(OneKeywordArgumentWithKeywords, a="test").keywords == {}
 
         # note that here the keyword replaces the actual argument so we do not get back any left overs
         assert getVariableArguments(oneKeywordArgumentWithKeywords, "test", a="test") == ({"a": "test"}, [], {})

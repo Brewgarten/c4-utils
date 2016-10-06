@@ -577,10 +577,10 @@ def getModuleClasses(module, baseClass=None, includeSubModules=True):
 
     classes = set()
     for m in modules:
-        for o in m.__dict__.values():
-            # make sure object is a class and its module is a submodule
-            if inspect.isclass(o) and o.__module__.startswith(module.__name__):
-                classes.add(o)
+        for _, cls in inspect.getmembers(m, inspect.isclass):
+            # make sure object module is a submodule
+            if cls.__module__.startswith(module.__name__):
+                classes.add(cls)
 
     if baseClass:
         return [clazz for clazz in classes if issubclass(clazz, baseClass)]
@@ -603,7 +603,7 @@ def getSubModules(module):
                 submodules.append(subModule)
                 submodules.extend(getSubModules(subModule))
             except ImportError as ie:
-                log.debug("Cannot import %s: %s", moduleName, ie)
+                log.error("Cannot import %s: %s", moduleName, ie)
 
     return submodules
 
@@ -659,6 +659,56 @@ def getVariableArguments(handler, *arguments, **keyValueArguments):
 
     return handlerArgumentMap, leftOverArguments, leftOverKeywords
 
+def initWithVariableArguments(cls, **keyValueArguments):
+    """
+    Create an instance of the class using the variable arguments
+
+    :param cls: class
+    :type cls: class
+    :param keyValueArguments: init key value arguments
+    :returns: instance
+    """
+    moduleName = getFullModuleName(cls)
+    className = moduleName + "." + cls.__name__
+
+    handlerArgSpec = inspect.getargspec(cls.__init__)
+    # retrieve variable argument map for the handler
+    handlerArgumentMap, _, leftOverKeywords = getVariableArguments(cls.__init__, **keyValueArguments)
+
+    # check for missing required arguments
+    missingArguments = [
+        key
+        for key, value in handlerArgumentMap.items()
+        if value == "_notset_"
+    ]
+    if missingArguments:
+        for missingArgument in missingArguments:
+            raise ValueError("'{name}' is missing required argument '{argument}'".format(
+                name=className, argument=missingArgument))
+
+    # add optional keyword arguments
+    if handlerArgSpec.keywords:
+        handlerArgumentMap.update(leftOverKeywords)
+
+    # add optional variable arguments
+    if handlerArgSpec.varargs:
+        # retrieve argument values from the map
+        handlerArgumentValues = [
+            handlerArgumentMap.pop(argumentName)
+            for argumentName in handlerArgSpec.args[1:]
+        ]
+        # combine argument values with varargs
+        varargsValue = leftOverKeywords.pop(handlerArgSpec.varargs)
+        combinedArguments = handlerArgumentValues + list(varargsValue)
+        instance = cls(*combinedArguments, **handlerArgumentMap)
+    else:
+        instance = cls(**handlerArgumentMap)
+
+    for key, value in leftOverKeywords.items():
+        log.warn("Key '%s' with value '%s' is not a valid parameter for '%s'", key, value, className)
+
+    return instance
+
 def isVirtualMachine():
     """
     Determine if we are in a virtual machine
@@ -708,27 +758,6 @@ def killProcessesUsingFileSystem(path):
     except Exception as e:
         log.exception(e)
 
-def naturalSortKey(string):
-    """
-    Convert string into a natural sort key that honors numbers and hyphens
-
-    :param string: string
-    :type string: str
-    """
-    key = []
-    partPattern = re.compile("(/)")
-    subpartPattern = re.compile("(-)")
-    portionPattern = re.compile("(\d+)")
-    for part in partPattern.split(string):
-        for subpart in subpartPattern.split(part):
-            for portion in portionPattern.split(subpart):
-                if portion:
-                    if portion.isdigit():
-                        key.append(int(portion))
-                    else:
-                        key.append(portion)
-    return key
-
 def mergeDictionaries(one, two):
     """
     Merge two dictionaries
@@ -769,6 +798,27 @@ def mergeDictionaries(one, two):
             merged[key] = copy.deepcopy(two[key])
 
     return merged
+
+def naturalSortKey(string):
+    """
+    Convert string into a natural sort key that honors numbers and hyphens
+
+    :param string: string
+    :type string: str
+    """
+    key = []
+    partPattern = re.compile("(/)")
+    subpartPattern = re.compile("(-)")
+    portionPattern = re.compile("(\d+)")
+    for part in partPattern.split(string):
+        for subpart in subpartPattern.split(part):
+            for portion in portionPattern.split(subpart):
+                if portion:
+                    if portion.isdigit():
+                        key.append(int(portion))
+                    else:
+                        key.append(portion)
+    return key
 
 def sortHostnames(hostnames):
     """
