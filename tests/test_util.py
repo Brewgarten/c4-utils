@@ -5,7 +5,7 @@ from multiprocessing import Process
 
 from c4.utils.util import (EtcHosts,
                            callWithVariableArguments,
-                           getModuleClasses, getVariableArguments,
+                           getModuleClasses, getPackageData, getVariableArguments,
                            exclusiveWrite,
                            initWithVariableArguments, isVirtualMachine,
                            mergeDictionaries,
@@ -416,6 +416,12 @@ def test_getModuleClasses():
 
     import c4.utils.jsonutil
     assert c4.utils.jsonutil.JSONSerializable in getModuleClasses(c4.utils.jsonutil)
+
+def test_getPackageData():
+
+    assert getPackageData("c4.utils", "util.py")
+    assert getPackageData("c4.utils", "missingResource") is None
+    assert getPackageData("missingPackage", "test") is None
 
 def test_mergeDictionaries():
 

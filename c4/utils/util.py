@@ -587,6 +587,49 @@ def getModuleClasses(module, baseClass=None, includeSubModules=True):
     else:
         return list(classes)
 
+def getPackageData(package, resource):
+    """
+    Get a resource from a package
+
+    :param package: package name
+    :type package: str
+    :param resource: resource path / name
+    :type resource: str
+    :returns: resource content
+    :rtype: str
+
+    .. note::
+
+        This is necessary because by default pkgutil.getData does not
+        support overlaying packages where the ``__init__.py`` contains
+        .. code-block:: python
+
+            from pkgutil import extend_path
+            __path__ = extend_path(__path__, __name__)
+
+        See `pkgutil - Package extension utility <https://docs.python.org/2/library/pkgutil.html?highlight=pkgutil#pkgutil.get_data>`_
+    """
+    loader = pkgutil.get_loader(package)
+    if loader is None or not hasattr(loader, "get_data"):
+        return None
+    mod = sys.modules.get(package) or loader.load_module(package)
+    if mod is None or not hasattr(mod, "__file__"):
+        return None
+
+    # Modify the resource name to be compatible with the loader.get_data
+    # signature - an os.path format "filename" starting with the dirname of
+    # the package's __file__
+    parts = resource.split('/')
+    for path in mod.__path__:
+        resourceName = os.path.join(path, *parts)
+        try:
+            return loader.get_data(resourceName)
+        except IOError:
+            # pass through and continue looking at next path
+            pass
+    log.error("Package '%s' does not contain resource '%s'", package, resource)
+    return None
+
 def getSubModules(module):
     """
     Recursively find all sub modules of the specified module
