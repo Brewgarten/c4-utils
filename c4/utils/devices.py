@@ -113,7 +113,7 @@ class Disk(c4.utils.jsonutil.JSONSerializable):
     def __init__(self, name, diskType, model):
         self.name = name
         self.partitions = {}
-        if not isinstance(diskType, DiskTypes):
+        if not isinstance(diskType, (DiskTypes, None)):
             raise ValueError("'%s' is not an enum of DiskType")
         self.type = diskType
         self.model = model
