@@ -366,7 +366,7 @@ def getAvailableDisks(lsblkOutput, ignoreOSDisks=True, includePartitions=False):
                 if "MOUNTPOINT" in diskInfo and diskInfo["MOUNTPOINT"]:
                     mountpoint = diskInfo["MOUNTPOINT"]
                     if mountpoint in ("/", "/boot", "[SWAP]") and ignoreOSDisks:
-                        log.trace("ignoring '%s' because existing partition '%s' has mountpoint '%s'",
+                        log.debug("ignoring '%s' because existing partition '%s' has mountpoint '%s'",
                                   currentDevice, name[2:], mountpoint)
                         del disks[currentDevice]
                         currentDevice = None
@@ -375,7 +375,7 @@ def getAvailableDisks(lsblkOutput, ignoreOSDisks=True, includePartitions=False):
                                   currentDevice, name[2:], mountpoint)
 
         else:
-            log.trace("ignoring '%s' because is has type '%s'", name, deviceType)
+            log.debug("ignoring '%s' because is has type '%s'", name, deviceType)
 
     return disks
 
