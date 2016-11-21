@@ -337,14 +337,14 @@ def getAvailableDisks(lsblkOutput, ignoreOSDisks=True, includePartitions=False):
             if int(size) > 10000000:
                 # detect virtual disks
                 if name.startswith("xvd") or name.startswith("vd"):
-                    disks[name] = Disk(name, DiskTypes.HDD, "virtual", size)
+                    disks[name] = Disk(name, DiskTypes.HDD, "virtual", size=size)
                 else:
                     rotational = int(diskInfo[3])
                     model = diskInfo[4]
                     if rotational == 0:
-                        disks[name] = Disk(name, DiskTypes.SSD, model, size)
+                        disks[name] = Disk(name, DiskTypes.SSD, model, size=size)
                     else:
-                        disks[name] = Disk(name, DiskTypes.HDD, model, size)
+                        disks[name] = Disk(name, DiskTypes.HDD, model, size=size)
 
                 currentDevice = name
 
