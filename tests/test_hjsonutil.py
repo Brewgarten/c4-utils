@@ -1,24 +1,32 @@
 import logging
+import sys
 
 import pytest
+
 
 log = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s [%(levelname)s] <%(processName)s:%(process)s> [%(name)s(%(filename)s:%(lineno)d)] - %(message)s', level=logging.DEBUG)
 
-from c4.utils.hjsonutil import HjsonSerializable
+pytestmark = pytest.mark.skipif("hjson" not in sys.modules, reason="only used when optional 'hjson' package is installed")
 
-class Sample(HjsonSerializable):
+try:
+    from c4.utils.hjsonutil import HjsonSerializable
 
-    def __init__(self, a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
+    class Sample(HjsonSerializable):
 
-    def toHjsonSerializable(self, includeClassInfo=False):
-        serializableDict = HjsonSerializable.toHjsonSerializable(self, includeClassInfo=includeClassInfo)
-        # remove some child property in a complex value
-        del serializableDict["c"]["a"]
-        return serializableDict
+        def __init__(self, a, b, c):
+            self.a = a
+            self.b = b
+            self.c = c
+
+        def toHjsonSerializable(self, includeClassInfo=False):
+            serializableDict = HjsonSerializable.toHjsonSerializable(self, includeClassInfo=includeClassInfo)
+            # remove some child property in a complex value
+            del serializableDict["c"]["a"]
+            return serializableDict
+
+except ImportError:
+    pass
 
 def test_serialization():
 
