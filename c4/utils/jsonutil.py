@@ -6,12 +6,14 @@ Functionality
 """
 
 import copy
+import datetime
 import inspect
 import json
 import logging
 
-import c4.utils.util
 import c4.utils.logutil
+import c4.utils.util
+
 
 log = logging.getLogger(__name__)
 
@@ -256,3 +258,61 @@ class JSONSerializable(object):
         """
         moduleName = c4.utils.util.getFullModuleName(self.__class__)
         return moduleName + "." + self.__class__.__name__
+
+class Datetime(datetime.datetime, JSONSerializable):
+    """
+    JSON serializable datetime
+    """
+    def toJSONSerializable(self, includeClassInfo=False):
+        """
+        Convert object to some JSON serializable Python object such as
+        str, list, dict, etc.
+
+        :param includeClassInfo: include class info in JSON, this
+            allows deserialization into the respective Python objects
+        :type includeClassInfo: bool
+        :returns: JSON serializable Python object
+        """
+        formattedDateString = self.toISOFormattedString()
+        if includeClassInfo:
+            serializableDict = {"value": formattedDateString}
+            serializableDict[self.classAttribute] = self.typeAsString
+            return serializableDict
+        else:
+            return formattedDateString
+
+    def toISOFormattedString(self):
+        """
+        Convert datetime into an ISO formatted string
+
+        :rtype: str
+        :returns: ISO formatted string
+        """
+        formattedString = self.isoformat("T")
+        # formatting does not automatically add the zeros if there are no microseconds
+        if not self.microsecond:
+            formattedString += ".000000"
+        return formattedString
+
+    @classmethod
+    def fromJSONSerializable(cls, d):
+        """
+        Convert a dictionary from JSON into a respective Python
+        objects. By default the dictionary is returned as is.
+
+        :param d: the JSON dictionary
+        :type d: dict
+        :returns: modified dictionary or Python objects
+        """
+        return cls.fromISOFormattedString(d["value"])
+
+    @classmethod
+    def fromISOFormattedString(cls, formattedString):
+        """
+        Convert an ISO formatted string into a Datetime object
+
+        :param formattedString: ISO formatted string
+        :type formattedString: str
+        :returns: Datetime instance
+        """
+        return cls.strptime(formattedString, "%Y-%m-%dT%H:%M:%S.%f")
