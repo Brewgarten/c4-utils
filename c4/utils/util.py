@@ -531,6 +531,46 @@ def exclusiveWrite(fileName, string, append=True, tries=3, timeout=1):
         if tries < 1:
             raise OSError("Could not acquire lock on '{0}' before timeout".format(fileName))
 
+def getFormattedArgumentString(arguments, keyValueArguments):
+    """
+    Get a formatted version of the argument string such that it can be used
+    in representations.
+
+    E.g., action("test", key="value") instead of action(["test"],{"key"="value"}
+
+    :param arguments: arguments
+    :type arguments: []
+    :param keyValueArguments: key value arguments
+    :type keyValueArguments: dict
+    :returns: formatted argument string
+    :rtype: str
+    """
+    argumentString = ""
+    if arguments:
+        argumentList = []
+        for argument in arguments:
+            if isinstance(argument, (str, unicode)):
+                argumentList.append("'{0}'".format(argument))
+            else:
+                argumentList.append(str(argument))
+        argumentString += ",".join(argumentList)
+
+    if keyValueArguments:
+        if arguments:
+            argumentString += ","
+        keyValueArgumentList = []
+        for key, value in keyValueArguments.items():
+            if isinstance(value, (str, unicode)):
+                keyValueArgumentList.append("{0}='{1}'".format(key, value))
+            else:
+                keyValueArgumentList.append("{0}={1}".format(key, str(value)))
+        argumentString += ",".join(keyValueArgumentList)
+
+    if argumentString:
+        argumentString = "({0})".format(argumentString)
+
+    return argumentString
+
 def getFullModuleName(o):
     """
     Get the full module name of an object or class
