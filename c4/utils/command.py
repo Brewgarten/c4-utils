@@ -7,6 +7,8 @@ Functionality
 """
 
 import logging
+import os
+import shlex
 import subprocess
 from pwd import getpwuid
 from os import geteuid
@@ -93,3 +95,37 @@ def execute(command, errorMessage=None, finallyClause=None, user=None):
     finally:
         if finallyClause:
             finallyClause()
+
+def run(command, workingDirectory=None):
+    """
+    Run command using the current or specified working directory
+    :param command: command
+    :type command: str
+    :param workingDirectory: working directory
+    :type str
+    :returns: tuple of stdout, stderr and return code
+    :rtype: (stdout, stderr, status)
+    """
+    if not workingDirectory:
+        workingDirectory = os.getcwd()
+
+    if not os.path.exists(workingDirectory):
+        return "", "Path '{path}' does not exist".format(path=workingDirectory), 1
+
+    log.debug("Running '%s' on '%s'", command, workingDirectory)
+    process = subprocess.Popen(
+        [part for part in shlex.split(command)],
+        cwd=workingDirectory,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+
+    # retrieve output and errors
+    stdout, stderr = process.communicate()
+    stdout = stdout.rstrip()
+    stderr = stderr.rstrip()
+
+    # check return code
+    status = process.poll()
+
+    return stdout, stderr, status
