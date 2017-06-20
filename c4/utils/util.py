@@ -96,10 +96,10 @@ import copy
 import fcntl
 import inspect
 import logging
-import multiprocessing
 import multiprocessing.managers
 import os
 import pkgutil
+import pwd
 import re
 import signal
 import sys
@@ -452,6 +452,19 @@ def callWithVariableArguments(handler, *arguments, **keyValueArguments):
         return handler(*combinedArguments, **handlerArgumentMap)
 
     return handler(**handlerArgumentMap)
+
+def checkUser(user):
+    """
+    Check if running as the specified user.
+
+    :param user: user name
+    :type user: str
+    :returns: True if running as user, False if not
+    :rtype: boolean
+    """
+    euid = os.geteuid()
+    entry = pwd.getpwuid(euid)
+    return entry.pw_name == user
 
 def confirmPrompt(prompt=None, default="no"):
     """
