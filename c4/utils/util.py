@@ -109,6 +109,8 @@ import traceback
 import c4.utils.command
 import c4.utils.logutil
 
+PARAMETER_DOC_REGEX = re.compile(r"\s*:(?P<docType>\w+)\s+(?P<name>\w+):\s+(?P<description>.+)", re.MULTILINE)
+
 log = logging.getLogger(__name__)
 
 @c4.utils.logutil.ClassLogger
@@ -543,6 +545,36 @@ def exclusiveWrite(fileName, string, append=True, tries=3, timeout=1):
             time.sleep(timeout)
         if tries < 1:
             raise OSError("Could not acquire lock on '{0}' before timeout".format(fileName))
+
+def getDocumentation(item):
+    """
+    Get documentation information on the specified item
+
+    :param item: a class, object, function, etc. with a doc string
+    :returns: a dictionary with parsed information on description and parameters
+    :rtype: dict
+    """
+    documentation = {
+        "parameters": {}
+    }
+    if item.__doc__:
+        documentation["description"] = "\n".join(
+            line.strip()
+            for line in item.__doc__.strip().splitlines()
+            if line and not line.strip().startswith(":")
+        )
+        for match in PARAMETER_DOC_REGEX.finditer(item.__doc__):
+            if match.group("name") not in documentation["parameters"]:
+                documentation["parameters"][match.group("name")] = {}
+
+            if match.group("docType") == "param":
+                documentation["parameters"][match.group("name")]["description"] = match.group("description")
+            if match.group("docType") == "type":
+                documentation["parameters"][match.group("name")]["type"] = match.group("description")
+    else:
+        documentation["description"] = ""
+
+    return documentation
 
 def getFormattedArgumentString(arguments, keyValueArguments):
     """
