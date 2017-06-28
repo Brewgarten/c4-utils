@@ -1,7 +1,7 @@
 pipeline {
   agent {
-    dockerfile {
-      filename "ci-environment.Dockerfile"
+    docker {
+      image "localhost:5000/centos-6-dynamite-python:2.2"
       label "docker"
     }
   }
@@ -28,15 +28,15 @@ pipeline {
       steps {
         // set up virtual environment
         sh "rm -rf env"
-        sh "python -m virtualenv --system-site-packages env"
+        sh "dynamite-python -m virtualenv --system-site-packages env"
         // install optional dependency Hjson
         sh "env/bin/pip install --disable-pip-version-check --no-cache-dir hjson"
 
         // run analysis
         sh "rm -rf pylint.log"
-        sh "python -m pylint --version"
+        sh "env/bin/dynamite-python -m pylint --version"
         // TODO: once the initial errors are fixed we can avoid hack to always succeed
-        sh "python -m pylint --output-format=parseable c4 > pylint.log || echo 0"
+        sh "env/bin/dynamite-python -m pylint --output-format=parseable c4 > pylint.log || echo 0"
       }
       post {
         always {
@@ -56,13 +56,13 @@ pipeline {
       steps {
         // set up virtual environment
         sh "rm -rf env"
-        sh "python -m virtualenv --system-site-packages env"
+        sh "dynamite-python -m virtualenv --system-site-packages env"
         // install optional dependency Hjson
         sh "env/bin/pip install --disable-pip-version-check --no-cache-dir hjson"
 
         // run tests
         sh "rm -rf test_results && mkdir test_results"
-        sh "python setup.py coverage"
+        sh "env/bin/dynamite-python setup.py coverage"
       }
       post {
         always {
@@ -85,7 +85,7 @@ pipeline {
       steps {
         // start with fresh dist folder
         sh "rm -rf dist"
-        sh "python setup.py sdist"
+        sh "dynamite-python setup.py sdist"
         dir("dist") {
           archive includes: "*"
         }
