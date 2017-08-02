@@ -110,13 +110,15 @@ class Disk(c4.utils.jsonutil.JSONSerializable):
     :param model: model name
     :type model: str
     """
-    def __init__(self, name, diskType, model):
+    def __init__(self, name, diskType, model, nsdList=None, size=0):
         self.name = name
         self.partitions = {}
         if not isinstance(diskType, DiskTypes):
             raise ValueError("'%s' is not an enum of DiskType")
         self.type = diskType
         self.model = model
+        self.nsdList = nsdList if nsdList else []
+        self.size = size
 
     def addPartition(self, partition):
         """
@@ -158,7 +160,7 @@ class Disk(c4.utils.jsonutil.JSONSerializable):
         totalUsed = 0;
         for index, part in self.partitions.items():
             totalUsed = totalUsed + part.percent
-            
+
         if totalUsed < 100:
             return True
         else:
@@ -255,19 +257,26 @@ def addLSIControllerInformation(disks, devicesInfo, blockDeviceMapping):
             if logicalDevice.isSSD:
                 disks[name].type = DiskTypes.SSD
 
-def getAvailableDisks(lsblkOutput):
+def getAvailableDisks(lsblkOutput, includePartitions=False):
     """
     Get available disk information
 
     :param lsblkOutput: output of ``lsblk --ascii --bytes --noheadings --output name,type,size,rota,mountpoint,fstype,model``
     :type lsblkOutput: str
+    :param includePartitions: include the partitions as part of getting the disks.
+    :type includePartitions: boolean
     """
     disks = {}
     lines = lsblkOutput.splitlines()
     currentDevice = None
     for line in lines:
-        diskInfo = line.split()
-        name, deviceType, size = diskInfo[:3]
+        try:
+            line = line.strip().split('"')
+            diskInfo  = { line[i].strip(" ="):line[i+1] for i in range(0, len(line), 2) if i + 1 < len(line) }
+            name, deviceType, size = diskInfo['NAME'], diskInfo['TYPE'], diskInfo['SIZE']
+        except:
+            log.info("Unable to parse %s", line)
+            continue
 
         if deviceType == "disk":
 
@@ -276,23 +285,33 @@ def getAvailableDisks(lsblkOutput):
 
                 # detect virtual disks
                 if name.startswith("xvd") or name.startswith("vd"):
-                    disks[name] = Disk(name, DiskTypes.HDD, "virtual")
+                    disks[name] = Disk(name, DiskTypes.HDD, "virtual", size=size)
                 else:
-                    rotational = int(diskInfo[3])
-                    model = diskInfo[4]
+                    rotational = int(diskInfo["ROTA"])
+                    model = diskInfo["MODEL"]
                     if rotational == 0:
-                        disks[name] = Disk(name, DiskTypes.SSD, model)
+                        disks[name] = Disk(name, DiskTypes.SSD, model, size=size)
                     else:
-                        disks[name] = Disk(name, DiskTypes.HDD, model)
+                        disks[name] = Disk(name, DiskTypes.HDD, model, size=size)
                 currentDevice = name
 
         elif deviceType == "part":
+            if includePartitions:
+                try:
+                    deviceName = re.search(r'([a-z]+)', name).group(1)
+                except Exception as exception:
+                    deviceName = "unknown"
+                    log.error(exception)
+
+                if deviceName in disks:
+                    if name not in disks[deviceName].partitions:
+                        disks[deviceName].partitions[name] = size
 
             if currentDevice is not None:
 
                 # check if a mount point and file system exists
-                if len(diskInfo) > 4:
-                    mountpoint = diskInfo[4]
+                if "MOUNTPOINT" in diskInfo and diskInfo["MOUNTPOINT"]:
+                    mountpoint = diskInfo["MOUNTPOINT"]
                     if mountpoint in ("/", "/boot", "[SWAP]"):
                         log.debug("ignoring '%s' because existing partition '%s' has mountpoint '%s'",
                                   currentDevice, name[2:], mountpoint)
@@ -308,7 +327,7 @@ def getAvailableDisks(lsblkOutput):
     return disks
 
 
-def getAvailableDevices(nodes, user="root"):
+def getAvailableDevices(nodes, user="root", includePartitions=False):
     """
     Get available devices for the specified nodes.
 
@@ -341,14 +360,16 @@ def getAvailableDevices(nodes, user="root"):
     :type nodes: [str]
     :param user: user name to use for the discovery
     :type user: str
+    :param includePartitions: include partition mapping when getting disks.
+    :type includePartitions: boolean
     :returns: :class:`DeviceMap`
     """
     devices = DeviceMap()
     for nodeName in nodes:
-        response = c4.utils.command.execute(["ssh", "{0}@{1}".format(user, nodeName), "lsblk --ascii --bytes --noheadings --output name,type,size,rota,mountpoint,fstype,model"],
+        response = c4.utils.command.execute(["ssh", "{0}@{1}".format(user, nodeName), "COLUMNS=100 lsblk --ascii --bytes --noheadings -P --output name,type,size,rota,mountpoint,fstype,model"],
                             "Could not determine available devices on {node} as {user}".format(node=nodeName, user=user))
         node = Node(nodeName)
-        node.disks = getAvailableDisks(response)
+        node.disks = getAvailableDisks(response, includePartitions=includePartitions)
 
         # check if any devices have been abstracted as JBODs through a SCSI controller
         if any([disk.model.startswith("MR") for disk in node.disks.values()]):
@@ -420,7 +441,7 @@ def partitionDevices(devices, user="root"):
                         removeMountPointCommand = ["ssh", "{0}@{1}".format(user, nodeName), "/bin/rmdir {0}".format(mountPoint)]
                         c4.utils.command.execute(removeMountPointCommand, "Could not remove mount point '{0}'".format(mountPoint))
 
-                        
+
 
             # create disk label
             createPartitionTableCommand = ["ssh", "{0}@{1}".format(user, nodeName), "parted -s /dev/{0} mklabel gpt".format(diskName)]
