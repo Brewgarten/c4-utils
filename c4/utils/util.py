@@ -93,6 +93,7 @@ Functionality
 import collections
 
 import copy
+import datetime
 import fcntl
 import inspect
 import logging
@@ -974,3 +975,86 @@ def sortHostnames(hostnames):
     sortedHostnames = [".".join(reversed(hostnamePart)) for hostnamePart in hostnameParts]
     sortedHostnames.extend(aliases)
     return sortedHostnames
+
+def updateLDAPUri(activeNode=None, useLocalHost=False):
+    """
+    Updates the LDAP URI in sssd.conf
+    :param activeNode: the active node to be set in LDAP URI
+    :type activeNode: str
+    :param useLocalHost: whether or not to use localhost in place of node name
+    :type useLocalHost: bool
+    """
+    if not activeNode:
+        log.error("Active node name not specified.")
+        return 1
+
+    log.info("Updating ldap_uri in /etc/sssd/sssd.conf with the new active node %s", activeNode)
+    try:
+        # Open the file to read
+        finDir  = "/etc/sssd"
+        finPath = "/etc/sssd/sssd.conf"
+        # It's not guaranteed that this funtion will be run by root, so it may not have
+        # appropriate permissions to access /etc/sssd.
+        ts = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
+        bkpPath = "/tmp/sssd.conf.bkp."+ ts
+        cmd = ['sudo', 'install', '-m', '600', '-o', 'apuser',  finPath, bkpPath]
+        c4.utils.command.execute(cmd)
+
+        fin = open(bkpPath, "r")
+
+        # Open the file to write
+        foutPath = "/tmp/sssd.conf.out"
+        # Delete /tmp/sssd.conf.out if it already exists
+        cmd = ['rm', '-f', foutPath]
+        c4.utils.command.execute(cmd)
+        fout = open(foutPath, 'w+')
+
+        updateThisSection = False
+
+        # Read the input file line by line, and write to the output file along with the updated ldap_uri
+        for line in fin:
+            if "[domain/local]" in line:
+                # We are in the section of the file in which ldap_uri needs to be updated
+                updateThisSection = True
+
+            if updateThisSection and line.strip().startswith("ldap_uri"):
+                if useLocalHost:
+                    activeNode = "localhost"
+                log.info("Updating ldap_uri = ldap://%s", activeNode)
+                fout.write("ldap_uri = ldap://"+ activeNode + "\n")
+                updateThisSection = False
+            else:
+                fout.write(line)
+
+        fin.close()
+        fout.close()
+        log.info("Copying /tmp/sssd.conf.out to /etc/sssd/sssd.conf")
+        cmd = ['sudo', 'install', '-m', '600', '-o', 'root',  foutPath, finPath]
+        c4.utils.command.execute(cmd)
+
+        # Keep a backup of sssd.conf with a timestamp
+        cmd = ['sudo', 'install', '-m', '600', '-o', 'root',  bkpPath, finDir]
+        c4.utils.command.execute(cmd)
+
+        # Delete /tmp/sssd.conf.out
+        cmd = ['rm', '-f', foutPath]
+        c4.utils.command.execute(cmd)
+
+        # Delete /tmp/sssd.conf.bkp.XXX
+        cmd = ['rm', '-f', bkpPath]
+        c4.utils.command.execute(cmd)
+
+    except Exception as e:
+        log.exception("Could not update the file /etc/sssd/sssd.conf %s", e)
+        return 1
+
+    # Restart sssd service
+    try:
+        log.info("Restart sssd service")
+        cmd = ['sudo', '/sbin/service', 'sssd', 'restart']
+        c4.utils.command.execute(cmd)
+    except Exception as e:
+        log.exception("Could not restart sssd service %s", e)
+        return 1
+
+    return 0
