@@ -1,3 +1,4 @@
+import mock
 import pytest
 import re
 
@@ -5,11 +6,15 @@ from multiprocessing import Process
 
 from c4.utils.util import (EtcHosts,
                            callWithVariableArguments,
-                           getModuleClasses, getPackageData, getVariableArguments,
+                           getModuleClasses,
+                           getPackageData,
+                           getVariableArguments,
                            exclusiveWrite,
-                           initWithVariableArguments, isVirtualMachine,
+                           initWithVariableArguments,
+                           isVirtualMachine,
                            mergeDictionaries,
-                           sortHostnames)
+                           sortHostnames,
+                           killDashdbServicePids)
 
 def test_EtcHosts():
 
@@ -461,3 +466,16 @@ def test_sortHostnames():
     assert sortHostnames(["b.b.c", "a", "a.b.c"]) == ["a.b.c", "b.b.c", "a"]
     assert sortHostnames(["a.b.c", "b.b", "c.b.c", "a"]) == ["b.b", "a.b.c", "c.b.c", "a"]
     assert sortHostnames(["a", "c.b.c", "b.b", "a.b.c"]) == ["b.b", "a.b.c", "c.b.c", "a"]
+
+def mockRun(command, workingDirectory=None):
+    if "/sbin/service dashdb-platform status" in command:
+        return "dashdb-platform (pid 1234 5678) is running", "", 0
+    elif "/bin/ps -o cmd=" in command:
+        return "/usr/bin/dynamite-python -m c4.system.manager run -b /etc/dashdb-platform/sm_backend.json -i /var/run/dashdb-platform/dashdb_pm.pid -l /etc/dashdb-platform/c4_logging_config.json", "", 0
+    else:
+        return "", "", 0
+
+@mock.patch("os.kill", return_value = 0)
+def test_killDashdbServicePids(osKill, monkeypatch):
+    monkeypatch.setattr("c4.utils.command.run", mockRun)
+    assert killDashdbServicePids() == ["1234", "5678"]

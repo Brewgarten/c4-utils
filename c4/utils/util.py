@@ -1058,3 +1058,22 @@ def updateLDAPUri(activeNode=None, useLocalHost=False):
         return 1
 
     return 0
+
+def killDashdbServicePids():
+    """
+    Kill all pids associated with the dashdb-platform service
+    """
+    pids = []
+    stdout, _, rc = c4.utils.command.run("/sbin/service dashdb-platform status")
+    if rc == 0:
+        match = re.search(r"dashdb-platform \(pid(?P<pids>(\s\d+)+)\) is running", stdout)
+        if match:
+            pids = match.group("pids").split()
+            log.info("Killing pids associated with the dashdb-platform service: %s", pids)
+            for pid in pids:
+                # only kill processes that are part of system manager's process tree.
+                # prevents killing of other dynamite-python processes since status uses pidof
+                stdout, _, rc = c4.utils.command.run("/bin/ps -o cmd= {}".format(pid))
+                if rc == 0 and "c4.system.manager" in stdout:
+                    os.kill(int(pid), signal.SIGKILL)
+    return pids
