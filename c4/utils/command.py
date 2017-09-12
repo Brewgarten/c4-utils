@@ -10,6 +10,8 @@ import logging
 import os
 import shlex
 import subprocess
+import multiprocessing
+import threading
 from pwd import getpwuid
 from os import geteuid
 
@@ -129,3 +131,59 @@ def run(command, workingDirectory=None):
     status = process.poll()
 
     return stdout, stderr, status
+
+def executeNforget(command, process_level=2):
+    """
+    Execute a command as a detached process not caring about return status.
+    Don't leave zombies behind
+
+    :param command: The command array or the command string. If string then shell is assumed to be true
+    :type command: [str] or str
+    :param process_level: functions internal recursion related value. Do not change!    
+    :type process_level: int
+    """
+
+    log.debug("Executing: '%s', process_level: %d", " ".join(command), process_level)
+    if process_level == 0:
+        if type(command) != list:
+            command=command.split()
+        try:
+#             execute(command)  # Fails to "forget" because opens stdin
+            proc = subprocess.Popen(command, shell=False,
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            log.debug("returncode = %d , command = '%s'", proc.returncode, " ".join(command))
+        except Exception, e:
+            log.error('executeNforget exception: %s', e)
+    else:
+        p = multiprocessing.Process(target=executeNforget,
+                                    args=(command,),
+                                    kwargs={'process_level':(process_level-1)})
+        p.start()
+        if process_level == 2:
+            p.join()
+
+def executeRemotely_callbackExecutor(ssh, cmd, callback):
+    output = execute(ssh + cmd)
+    return callback(output)
+
+def executeRemotely(cmd, host, user='root', callback=None):
+    """
+    Execute command on a remote machine/node via SSH connection.
+    This is an fire and forget implementation - no status is returned.
+
+    :param cmd: Array of strings defining command and its arguments
+    :type cmd: string
+    :param host: Target host to execute command on
+    :type host: string
+    :param user: User used for SSH authorization on remote host (default: apuser)
+    :type user: string
+    """
+    ssh = ['/usr/bin/ssh',
+               '-o', 'PasswordAuthentication=no',# '-o', 'StrictHostKeyChecking=no',
+               '-l', user, host]
+    if not hasattr(callback, '__call__'):
+        executeNforget(ssh + cmd)
+        return None
+    else:
+        return threading.Thread(target=executeRemotely_callbackExecutor, args=(ssh, cmd, callback)).start()
+
