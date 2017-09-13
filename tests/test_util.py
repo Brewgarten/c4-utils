@@ -14,7 +14,7 @@ from c4.utils.util import (EtcHosts,
                            isVirtualMachine,
                            mergeDictionaries,
                            sortHostnames,
-                           killDashdbServicePids)
+                           killServicePids)
 
 def test_EtcHosts():
 
@@ -476,6 +476,6 @@ def mockRun(command, workingDirectory=None):
         return "", "", 0
 
 @mock.patch("os.kill", return_value = 0)
-def test_killDashdbServicePids(osKill, monkeypatch):
+def test_killServicePids(osKill, monkeypatch):
     monkeypatch.setattr("c4.utils.command.run", mockRun)
-    assert killDashdbServicePids() == ["1234", "5678"]
+    assert killServicePids("dashdb-platform", "c4.system.manager") == ["1234", "5678"]

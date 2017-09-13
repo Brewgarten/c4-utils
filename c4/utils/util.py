@@ -110,6 +110,7 @@ import traceback
 import c4.utils.command
 import c4.utils.logutil
 
+C4_SYSTEM_MANAGER = "c4.system.manager"
 PARAMETER_DOC_REGEX = re.compile(r"\s*:(?P<docType>\w+)\s+(?P<name>\w+):\s+(?P<description>.+)", re.MULTILINE)
 
 log = logging.getLogger(__name__)
@@ -1059,21 +1060,25 @@ def updateLDAPUri(activeNode=None, useLocalHost=False):
 
     return 0
 
-def killDashdbServicePids():
+def killServicePids(serviceName, processFilter=None):
     """
-    Kill all pids associated with the dashdb-platform service
+    Kill all pids associated with the a service
+
+    :param serviceName: Name of service to be killed
+    :type serviceName: str
+    :param processFilter: If this text is in the process name, it will be killed.
+    :type processFilter: str
     """
     pids = []
-    stdout, _, rc = c4.utils.command.run("/sbin/service dashdb-platform status")
+    stdout, _, rc = c4.utils.command.run("/sbin/service {} status".format(serviceName))
     if rc == 0:
-        match = re.search(r"dashdb-platform \(pid(?P<pids>(\s\d+)+)\) is running", stdout)
+        match = re.search(r".* \(pid(?P<pids>(\s\d+)+)\) is running", stdout)
         if match:
             pids = match.group("pids").split()
-            log.info("Killing pids associated with the dashdb-platform service: %s", pids)
+            log.info("Killing pids associated with the %s service: %s", serviceName, pids)
             for pid in pids:
-                # only kill processes that are part of system manager's process tree.
-                # prevents killing of other dynamite-python processes since status uses pidof
+                # only kill processes that contain the filter text.
                 stdout, _, rc = c4.utils.command.run("/bin/ps -o cmd= {}".format(pid))
-                if rc == 0 and "c4.system.manager" in stdout:
+                if rc == 0 and (not processFilter or processFilter in stdout):
                     os.kill(int(pid), signal.SIGKILL)
     return pids
