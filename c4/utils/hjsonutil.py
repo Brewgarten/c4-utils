@@ -1,4 +1,8 @@
 """
+Copyright (c) IBM 2015-2017. All Rights Reserved.
+Project name: c4-utils
+This project is licensed under the MIT License, see LICENSE
+
 This library contains Hjson helper functionality
 
 See `Hjson <https://hjson.org/>`_ for more information
