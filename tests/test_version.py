@@ -16,6 +16,9 @@ class TestBasicVersion():
         assert BasicVersion("1.2a") < BasicVersion("1.2beta")
         assert BasicVersion("1.2.dev123") < BasicVersion("1.2dev456")
 
+        with pytest.raises(ValueError):
+            assert BasicVersion("1.2") == 1.2
+
     def test_parsing(self):
 
         # short version
@@ -62,6 +65,15 @@ class TestBasicVersion():
         with pytest.raises(ValueError):
             BasicVersion("1.2test")
 
+        with pytest.raises(ValueError):
+            BasicVersion("1.2.=")
+
+    def test_str(self):
+
+        assert str(BasicVersion("1.2")) == "1.2"
+        assert str(BasicVersion("1.2.3.a456")) == "1.2.3.alpha.456"
+        assert str(BasicVersion("1.2.3.beta")) == "1.2.3.beta"
+
 class TestRPMVersion():
 
     def test_comparison(self):
@@ -73,6 +85,11 @@ class TestRPMVersion():
 
         assert RPMVersion("1.2-100") > RPMVersion("1.2-0")
         assert RPMVersion("1.2-1.2.3") < RPMVersion("1.2-1.3")
+
+        with pytest.raises(ValueError):
+            assert RPMVersion("1.2-0") == 1.2
+
+        assert RPMVersion("1.2-0") != RPMVersion("1.3-0")
 
     def test_parsing(self):
 
@@ -89,3 +106,10 @@ class TestRPMVersion():
         # must follow format
         with pytest.raises(ValueError):
             RPMVersion("invalid")
+
+        with pytest.raises(Exception):
+            assert RPMVersion("1.2-1.2.a") == "DID NOT RAISE"
+
+    def test_str(self):
+
+        assert str(RPMVersion("1.2-1.2.3")) == "1.2-1.2.3"
