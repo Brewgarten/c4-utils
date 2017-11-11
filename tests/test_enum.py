@@ -14,6 +14,12 @@ def test_enums():
     assert isinstance(example, Example)
     assert example.name == "A"
     assert example.value == "a"
+    assert Example.A is not Example.A
+    assert Example.A != Example.B
+    assert Example.A < Example.B
+    assert Example.B > Example.A
+    assert Example.A <= Example.B
+    assert Example.B >= Example.B
 
     roleString = str(example)
     roleRepresentation = repr(example)
